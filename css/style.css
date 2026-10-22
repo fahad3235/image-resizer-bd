@@ -1,0 +1,37 @@
+/* image-resizer-bd -- styles. Pure ASCII. */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f4f6f8; color: #1c2430; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 16px; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+h1 { margin: 0 0 4px; font-size: 1.6rem; }
+.sub { margin: 0; color: #55606e; }
+.lang-btn { border: 1px solid #c9d2dc; background: #fff; border-radius: 8px; padding: 8px 14px; font-weight: 700; cursor: pointer; }
+.card { background: #fff; border: 1px solid #dde3ea; border-radius: 12px; padding: 16px; margin: 14px 0; }
+h2 { margin: 0 0 12px; font-size: 1.15rem; }
+.privacy { background: #e8f5e9; border: 1px solid #b9dfbc; border-radius: 10px; padding: 10px 12px; margin: 14px 0 0; }
+.dropzone { border: 2px dashed #9fb2c8; border-radius: 10px; padding: 22px 12px; text-align: center; cursor: pointer; }
+.dropzone.drag { border-color: #1a7f37; background: #eefaf0; }
+.dz-big { font-weight: 700; margin: 0 0 4px; }
+.dz-small { color: #55606e; margin: 0 0 12px; }
+.btn { display: inline-block; border: 0; border-radius: 8px; padding: 10px 16px; font-weight: 700; cursor: pointer; background: #e2e8f0; color: #1c2430; text-decoration: none; }
+.btn.primary { background: #0b6fa4; color: #fff; }
+.btn.secondary { background: #e2e8f0; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.error { color: #b42318; background: #fdecea; border: 1px solid #f5c6c2; border-radius: 8px; padding: 8px 10px; }
+.note { color: #55606e; font-size: 0.92rem; }
+.preview-row { display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+.preview-img { max-width: 100%; width: 280px; height: auto; border: 1px solid #dde3ea; border-radius: 8px; background: #f4f6f8; }
+.meta p { margin: 4px 0; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+label { display: block; margin: 8px 0; font-weight: 600; }
+label input[type="number"], label select { width: 100%; padding: 8px; border: 1px solid #c9d2dc; border-radius: 8px; margin-top: 4px; font-size: 1rem; }
+label input[type="range"] { width: 100%; }
+fieldset { border: 1px solid #dde3ea; border-radius: 8px; margin: 8px 0; }
+fieldset label { font-weight: 500; }
+.check { font-weight: 500; }
+.foot { text-align: center; color: #55606e; font-size: 0.9rem; }
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  h1 { font-size: 1.35rem; }
+  .preview-img { width: 100%; }
+}

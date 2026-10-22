@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="appTitle">Image Resizer BD</title>
+<meta name="description" content="Offline image resizer and compressor for Bangladesh. Resize, convert, rotate and download images in the browser. Nothing is uploaded.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div>
+      <h1 data-i18n="appTitle">Image Resizer BD</h1>
+      <p class="sub" data-i18n="tagline">Resize, convert and compress your images -- fully offline.</p>
+    </div>
+    <button id="langBtn" class="lang-btn" type="button">BN</button>
+  </header>
+
+  <p class="privacy" data-i18n="privacy">Your file never leaves this device. Everything is processed in your browser -- nothing is uploaded.</p>
+
+  <section class="card" aria-label="Upload">
+    <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload image">
+      <p class="dz-big" data-i18n="dropHere">Drop an image here or choose a file</p>
+      <p class="dz-small" data-i18n="dropHint">JPG, PNG, WebP or GIF -- up to 10 MB</p>
+      <label class="btn" for="fileInput"><span data-i18n="chooseFile">Choose image</span></label>
+      <input id="fileInput" type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+    </div>
+    <p id="fileError" class="error" role="alert" hidden></p>
+  </section>
+
+  <section id="originalSection" class="card" hidden>
+    <h2 data-i18n="original">Original</h2>
+    <div class="preview-row">
+      <img id="origImg" class="preview-img" alt="">
+      <div class="meta">
+        <p><span data-i18n="name">Name</span>: <span id="origName">-</span></p>
+        <p><span data-i18n="dimensions">Dimensions</span>: <span id="origDims">-</span></p>
+        <p><span data-i18n="fileSize">File size</span>: <span id="origSize">-</span></p>
+        <p><span data-i18n="format">Format</span>: <span id="origFormat">-</span></p>
+        <p id="gifNote" class="note" hidden><span data-i18n="gifNote">GIF note: only the first frame is processed.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="controlsSection" class="card" hidden>
+    <h2 data-i18n="settings">Resize settings</h2>
+
+    <fieldset>
+      <legend data-i18n="fitMode">Size mode</legend>
+      <label><input type="radio" name="fitMode" value="exact" checked> <span data-i18n="modeExact">Exact width &amp; height</span></label>
+      <label><input type="radio" name="fitMode" value="fit"> <span data-i18n="modeFit">Fit inside max side</span></label>
+    </fieldset>
+
+    <div class="grid">
+      <label><span data-i18n="width">Width (px)</span>
+        <input id="widthInput" type="number" min="1" max="10000" inputmode="numeric"></label>
+      <label><span data-i18n="height">Height (px)</span>
+        <input id="heightInput" type="number" min="1" max="10000" inputmode="numeric"></label>
+    </div>
+    <label class="check"><input id="lockAspect" type="checkbox" checked> <span data-i18n="lockAspect">Lock aspect ratio</span></label>
+
+    <label><span data-i18n="maxSide">Max side (fit-inside mode, px)</span>
+      <input id="maxSideInput" type="number" min="1" max="10000" value="800" inputmode="numeric"></label>
+
+    <label><span data-i18n="percent">Scale</span>: <span id="percentVal">100%</span>
+      <input id="percentInput" type="range" min="10" max="200" value="100"></label>
+
+    <div class="grid">
+      <label><span data-i18n="outFormat">Output format</span>
+        <select id="formatSelect">
+          <option value="keep" data-i18n="fmtKeep">Keep original</option>
+          <option value="png" data-i18n="fmtPng">PNG</option>
+          <option value="jpeg" data-i18n="fmtJpeg">JPEG</option>
+          <option value="webp" data-i18n="fmtWebp">WebP</option>
+        </select></label>
+      <label><span data-i18n="quality">Quality (JPEG / WebP)</span>: <span id="qualityVal">85</span>
+        <input id="qualityInput" type="range" min="10" max="100" value="85"></label>
+    </div>
+
+    <div class="btn-row">
+      <button id="rotateLeftBtn" class="btn secondary" type="button"><span data-i18n="rotateLeft">Rotate 90 left</span></button>
+      <button id="rotateRightBtn" class="btn secondary" type="button"><span data-i18n="rotateRight">Rotate 90 right</span></button>
+      <button id="flipHBtn" class="btn secondary" type="button"><span data-i18n="flipH">Flip horizontal</span></button>
+      <button id="flipVBtn" class="btn secondary" type="button"><span data-i18n="flipV">Flip vertical</span></button>
+    </div>
+
+    <p id="transformState" class="note" aria-live="polite"></p>
+
+    <div class="btn-row">
+      <button id="processBtn" class="btn primary" type="button"><span data-i18n="process">Resize image</span></button>
+      <button id="resetBtn" class="btn secondary" type="button"><span data-i18n="reset">Reset</span></button>
+    </div>
+    <p id="processError" class="error" role="alert" hidden></p>
+  </section>
+
+  <section id="outputSection" class="card" hidden>
+    <h2 data-i18n="output">Result</h2>
+    <div class="preview-row">
+      <img id="outImg" class="preview-img" alt="">
+      <div class="meta">
+        <p><span data-i18n="dimensions">Dimensions</span>: <span id="outDims">-</span></p>
+        <p><span data-i18n="fileSize">File size</span>: <span id="outSize">-</span></p>
+        <p><span data-i18n="format">Format</span>: <span id="outFormat">-</span></p>
+        <p><span data-i18n="saved">Saved vs original</span>: <span id="savedPct">-</span></p>
+      </div>
+    </div>
+    <a id="downloadLink" class="btn primary" href="#" download><span data-i18n="download">Download resized image</span></a>
+  </section>
+
+  <section id="emptyState" class="card">
+    <p data-i18n="emptyState">No image yet. Choose an image above to start resizing.</p>
+  </section>
+
+  <footer><p class="foot" data-i18n="footer">100% offline -- no uploads, no accounts, no tracking.</p></footer>
+</main>
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
